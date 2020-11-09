@@ -62,6 +62,26 @@
       </tags>
   </entry>
   <entry>
+    <title>Leetcode  0001</title>
+    <url>/2020/11/09/Leetcode0001/</url>
+    <content><![CDATA[<p>收获：对于去重，查找唯一的思考。</p>
+<a id="more"></a>
+
+<p>由于当天没有准时写笔记，导致思路有些模糊。</p>
+<p>（1）寻找匹配的两个数，如果用两层for循环，时间复杂度会非常高。而hashmap有个containsKey方法，很高效。并且hashmap还有去重的效果。</p>
+<h2 id="我的答案："><a href="#我的答案：" class="headerlink" title="我的答案："></a>我的答案：</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        HashMap&lt;Integer, Integer&gt; hashmap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.length;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (hashmap.containsKey(target - nums[i]))&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span> []&#123; hashmap.get(target - nums[i]),i&#125;;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                hashmap.put(nums[i],i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[] &#123;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="官方答案："><a href="#官方答案：" class="headerlink" title="官方答案："></a>官方答案：</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        Map&lt;Integer, Integer&gt; hashtable = <span class="keyword">new</span> HashMap&lt;Integer, Integer&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; ++i) &#123;</span><br><span class="line">            <span class="keyword">if</span> (hashtable.containsKey(target - nums[i])) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;hashtable.get(target - nums[i]), i&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            hashtable.put(nums[i], i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">作者：LeetCode-Solution</span><br><span class="line">链接：https:<span class="comment">//leetcode-cn.com/problems/two-sum/solution/liang-shu-zhi-he-by-leetcode-solution/</span></span><br><span class="line">来源：力扣（LeetCode）</span><br><span class="line">著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <tags>
+        <tag>algorithm</tag>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Leetcode  0002</title>
     <url>/2020/11/09/Leetcode0002/</url>
     <content><![CDATA[<p>收获：对于链表的节点，游标的思考。</p>
@@ -82,7 +102,7 @@
 ]]></content>
       <tags>
         <tag>algorithm</tag>
-        <tag>刷题</tag>
+        <tag>leetcode</tag>
       </tags>
   </entry>
 </search>
