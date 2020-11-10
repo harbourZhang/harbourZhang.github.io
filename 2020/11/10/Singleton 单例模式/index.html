@@ -10,7 +10,7 @@
   <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-  <title>Leetcode  0003 | Harbour个人博客</title>
+  <title>singleton单例模式 | Harbour个人博客</title>
   
     
 <link rel="stylesheet" href="/js/aos/aos.css">
@@ -311,10 +311,10 @@
       
 
 
-<div class="post-detail-header" style="background: url(/medias/6.jpg) no-repeat; background-size: cover; 
+<div class="post-detail-header" style="background: url(/medias/2.png) no-repeat; background-size: cover; 
   background-position: center center;">
   
-    <span class="title">Leetcode  0003</span>
+    <span class="title">singleton单例模式</span>
   
 </div>
 <div class="row justify-center">
@@ -324,7 +324,7 @@
       
       <div class="post-meta">
         <i class="fa fa-clock-o" aria-hidden="true"></i>
-        <span class="post-time">2020-11-09</span>
+        <span class="post-time">2020-11-10</span>
       </div>
       
       <div class="post-tags-categories">
@@ -332,12 +332,12 @@
         <div class="tags">
           <i class="iconfont icontag"></i>
           
-            <a href="/tags/algorithm/" class="">
-              algorithm
+            <a href="/tags/java/" class="">
+              java
             </a>
           
-            <a href="/tags/leetcode/" class="">
-              leetcode
+            <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" class="">
+              面试题
             </a>
           
         </div>
@@ -345,62 +345,168 @@
         
       </div>
       <div class="post-content">
-        <p>收获：对于滑动窗口思考。</p>
+        <p>一些关于单例模式的学习笔记</p>
 <a id="more"></a>
 
-<p>这道题一拿过来，倒是想到了用滑动窗口做。做的过程中出现了这么个问题：</p>
-<p>（1）如果最后一个字符没有重复，那么整体长度正常</p>
-<p>（2）如果最后一个字符重复了，那么整体长度会增加1</p>
-<p>是因为，最后一个字符如果重复了，那么最后一个字符的下标就用上了，而start位置的下标是那个重复字符的下标，于是这个重复字符就计算了两次。</p>
-<p>然后瞄了一眼别人的答案，发现我的思路还是有很多的问题：</p>
-<p>（1）不论当前字符是否重复，当前字符都应当加入hashmap中。</p>
-<p>（2）就算当前字符重复了，也不需要将之前存入hashmap的字符删除。因为把当前字符存入hashmap的时候，它会自动覆盖之前存储的键值对。</p>
-<p>（3）当修改滑动窗口的左边位置时，应该想到，左边的窗口位置始终是一直变大的。而不是让左边的窗口位置回到上一个重复节点的位置。比如“abba”，第一次重复时，让左边窗口位置定位到b，而第二次重复时，如果把窗口左边位置定位回a，就会造成结果的错误。</p>
-<h2 id="我的答案："><a href="#我的答案：" class="headerlink" title="我的答案："></a>我的答案：</h2><pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">lengthOfLongestSubstring</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> start <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> end <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> len <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> chars <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">toCharArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    HashMap<span class="token operator">&lt;</span>Character<span class="token punctuation">,</span> Integer<span class="token operator">></span> map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">while</span> <span class="token punctuation">(</span> end <span class="token operator">&lt;</span> chars<span class="token punctuation">.</span>length <span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>map<span class="token punctuation">.</span><span class="token function">containsKey</span><span class="token punctuation">(</span>chars<span class="token punctuation">[</span>end<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-            start <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>map<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>chars<span class="token punctuation">[</span>end<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span>start<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token comment" spellcheck="true">// start = map.get(chars[end]) + 1;</span>
+<h1 id="一、什么是Singleton？"><a href="#一、什么是Singleton？" class="headerlink" title="一、什么是Singleton？"></a>一、什么是Singleton？</h1><h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h2><p>Singleton： 在 java 中即指单例设计模式，它是软件开发中最常用的设计模式之一。</p>
+<p>单例模式，==单：唯一； 例：实例==</p>
+<p>单例设计模式，即某个类在整个系统中只能有一个实例对象可被获取和使用的代码模式。</p>
+<p>例如：java的代表 JVM 运行环境的Runtime类。</p>
+<h2 id="2-要点"><a href="#2-要点" class="headerlink" title="2. 要点"></a>2. 要点</h2><p>（1） 某个类只能有一个实例： 意味着构造器必须私有化</p>
+<p>（2）它必须自行创建这个实例： 用含有一个该类的静态变量来保存这个唯一的实例</p>
+<p>（3）它必须自行向整个系统提供这个实例：</p>
+<p>​            对外提供获取该实例对象的方式： </p>
+<p>​            ==直接暴露；==</p>
+<p>​            ==用静态变量的get方法获取。==</p>
+<h2 id="3-饿汉式构造"><a href="#3-饿汉式构造" class="headerlink" title="3. 饿汉式构造"></a>3. 饿汉式构造</h2><p>==在类初始化时直接创建对象，不存在线程安全问题==</p>
+<p>（1）直接实例化饿汉式（简洁直观） </p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+ * @author Harbour
+ * @create 2020-11-10 9:35
+ *
+ * (1)构造器私有化
+ * (2)用静态变量存储此实例
+ * (3)向外提供这个实例，用public修饰
+ * (4)强调这是一个单例，可以用final修改，大写
+ */</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Singleton01</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 1. 直接实例化的方式</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">final</span> Singleton01 INSTANCE <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Singleton01</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token function">Singleton01</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span><span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+<p>（2）枚举式（最简洁）</p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+ * @author Harbour
+ * @create 2020-11-10 9:42
+ * (1) 枚举类: 表示该类型的对象只有有限的几个
+ * (2) 我们可以给他限定为1个，即成了单例模式
+ * (3) 枚举类的构造器都是私有化的
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">enum</span> Singleton02 <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 2. 直接枚举类创建</span>
+    INSTANCE
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+<p>（3）静态代码块饿汉式（适合复杂实例化）</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> singleton<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> javax<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Resource<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>IOException<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Properties<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * @author Harbour
+ * @create 2020-11-10 9:46
+ * (1) 适用于复杂类型的单例，比如需要从外接加载必要的信息
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Singleton03</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">// 3. 静态代码块式的构造</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">final</span> Singleton03 INSTANCE<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String info<span class="token punctuation">;</span>
+
+    <span class="token keyword">static</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            Properties pro <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Properties</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            pro<span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>Singleton03<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getClassLoader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getResourceAsStream</span><span class="token punctuation">(</span><span class="token string">"single.properties"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            INSTANCE <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Singleton03</span><span class="token punctuation">(</span>pro<span class="token punctuation">.</span><span class="token function">getProperty</span><span class="token punctuation">(</span><span class="token string">"info"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IOException</span> e<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">RuntimeException</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-        map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>chars<span class="token punctuation">[</span>end<span class="token punctuation">]</span><span class="token punctuation">,</span> end<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        len <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>end <span class="token operator">-</span> start <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> len<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        end<span class="token operator">++</span><span class="token punctuation">;</span>
     <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> len<span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span></code></pre>
-<h2 id="官方答案："><a href="#官方答案：" class="headerlink" title="官方答案："></a>官方答案：</h2><pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">lengthOfLongestSubstring</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">// 哈希集合，记录每个字符是否出现过</span>
-        Set<span class="token operator">&lt;</span>Character<span class="token operator">></span> occ <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashSet</span><span class="token operator">&lt;</span>Character<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> n <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">// 右指针，初始值为 -1，相当于我们在字符串的左边界的左侧，还没有开始移动</span>
-        <span class="token keyword">int</span> rk <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> ans <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-                <span class="token comment" spellcheck="true">// 左指针向右移动一格，移除一个字符</span>
-                occ<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">private</span> <span class="token function">Singleton03</span><span class="token punctuation">(</span>String info<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>info <span class="token operator">=</span> info<span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="4-懒汉式构造"><a href="#4-懒汉式构造" class="headerlink" title="4. 懒汉式构造"></a>4. 懒汉式构造</h2><p>延迟创建对象，存在线程安全问题</p>
+<p>（1）线程不安全（适用于单线程）</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> singleton<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * @author Harbour
+ * @create 2020-11-10 10:46
+ * 第一中懒汉式构造方式，存在线程安全问题,可能创建多个实例
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Singleton04</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> Singleton04 instance<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token function">Singleton04</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span><span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> Singleton04 <span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>instance <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token keyword">try</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">/* 第一个线程等待了1000毫秒，然后继续创建实例
+                   第二个线程在这1000毫秒之内进来了，然后也创建了实例
+                   于是出现了两个实例，导致线程不安全 
+                */</span>
+                Thread<span class="token punctuation">.</span><span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">InterruptedException</span> e<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
             <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-            <span class="token keyword">while</span> <span class="token punctuation">(</span>rk <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">&lt;</span> n <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>occ<span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>rk <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-                <span class="token comment" spellcheck="true">// 不断地移动右指针</span>
-                occ<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>rk <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token operator">++</span>rk<span class="token punctuation">;</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-            <span class="token comment" spellcheck="true">// 第 i 到 rk 个字符是一个极长的无重复字符子串</span>
-            ans <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>ans<span class="token punctuation">,</span> rk <span class="token operator">-</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            instance <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Singleton04</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> ans<span class="token punctuation">;</span>
+        <span class="token keyword">return</span> instance<span class="token punctuation">;</span>
     <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+<p>（2）线程安全（适用于多线程）</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> singleton<span class="token punctuation">;</span>
 
-作者：LeetCode<span class="token operator">-</span>Solution
-链接：https<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>leetcode<span class="token operator">-</span>cn<span class="token punctuation">.</span>com<span class="token operator">/</span>problems<span class="token operator">/</span>longest<span class="token operator">-</span>substring<span class="token operator">-</span>without<span class="token operator">-</span>repeating<span class="token operator">-</span>characters<span class="token operator">/</span>solution<span class="token operator">/</span>wu<span class="token operator">-</span>zhong<span class="token operator">-</span>fu<span class="token operator">-</span>zi<span class="token operator">-</span>fu<span class="token operator">-</span>de<span class="token operator">-</span>zui<span class="token operator">-</span>chang<span class="token operator">-</span>zi<span class="token operator">-</span>chuan<span class="token operator">-</span>by<span class="token operator">-</span>leetc<span class="token operator">-</span><span class="token number">2</span><span class="token operator">/</span>
-来源：力扣（LeetCode）
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</code></pre>
+<span class="token comment" spellcheck="true">/**
+ * @author Harbour
+ * @create 2020-11-10 10:46
+ * 第二种懒汉式构造方式，不存在线程安全问题
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Singleton05</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">static</span> Singleton05 instance<span class="token punctuation">;</span>
+
+    <span class="token keyword">private</span> <span class="token function">Singleton05</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span><span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> Singleton05 <span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 外层判断是为了提高运行效率，没必要每次都执行内部同步代码块</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>instance <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 内层同步代码块，保证第一次创建时不会存在线程安全问题</span>
+            <span class="token keyword">synchronized</span> <span class="token punctuation">(</span>Singleton05<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>instance <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                    instance <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Singleton05</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> instance<span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+<p>（3）静态内部类形式（适用于多线程）</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> singleton<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * @author Harbour
+ * @create 2020-11-10 10:46
+ * 第三种懒汉式构造方式，适用多线程
+ * (1)在内部类被加载和初始化时，才创建INSTANCE实例对象
+ * (2)静态内部类不会自动随着外部类的加载和初始化而初始化，它是要单独去加载和初始化的
+ * (3)因为是在内部类加载和初始化时，创建的，因此是线程安全的
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Singleton06</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">private</span> <span class="token function">Singleton06</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span><span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">Inner</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> Singleton06 INSTANCE <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Singleton06</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> Singleton06 <span class="token function">getInstance</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> Inner<span class="token punctuation">.</span>INSTANCE<span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
 
       </div>
       
@@ -411,7 +517,7 @@
     </li>
     <li class="post-copyright-link">
     <strong>文章链接:  </strong>
-    <a href="/2020/11/09/Leetcode0003/" target="_blank" title="Leetcode  0003">https://harbourzhang99.github.io/2020/11/09/Leetcode0003/</a>
+    <a href="/2020/11/10/Singleton 单例模式/" target="_blank" title="singleton单例模式">https://harbourzhang99.github.io/2020/11/10/Singleton 单例模式/</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明:   </strong>
@@ -427,17 +533,17 @@
       <div class="post-nav">
 
   <div class="post-nav-prev post-nav-item">
-    <a href="/2020/11/10/Singleton%20%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">
-      上一篇:    singleton单例模式
+    <a href="/2020/11/10/java%E9%9D%A2%E8%AF%95%E9%A2%98/">
+      上一篇:    java 初始化相关问题
     </a>
   </div>
 
 
 
   <div class="post-nav-next post-nav-item">
-    <a href="/2020/11/09/Leetcode0001/">
+    <a href="/2020/11/09/Leetcode0003/">
       <span>
-        下一篇:    Leetcode  0001 
+        下一篇:    Leetcode  0003 
       </span>
     </a>
   </div>

@@ -10,7 +10,7 @@
   <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-  <title>Leetcode  0003 | Harbour个人博客</title>
+  <title>java 初始化相关问题 | Harbour个人博客</title>
   
     
 <link rel="stylesheet" href="/js/aos/aos.css">
@@ -311,10 +311,10 @@
       
 
 
-<div class="post-detail-header" style="background: url(/medias/6.jpg) no-repeat; background-size: cover; 
+<div class="post-detail-header" style="background: url(/medias/11.png) no-repeat; background-size: cover; 
   background-position: center center;">
   
-    <span class="title">Leetcode  0003</span>
+    <span class="title">java 初始化相关问题</span>
   
 </div>
 <div class="row justify-center">
@@ -324,7 +324,7 @@
       
       <div class="post-meta">
         <i class="fa fa-clock-o" aria-hidden="true"></i>
-        <span class="post-time">2020-11-09</span>
+        <span class="post-time">2020-11-10</span>
       </div>
       
       <div class="post-tags-categories">
@@ -332,12 +332,12 @@
         <div class="tags">
           <i class="iconfont icontag"></i>
           
-            <a href="/tags/algorithm/" class="">
-              algorithm
+            <a href="/tags/java/" class="">
+              java
             </a>
           
-            <a href="/tags/leetcode/" class="">
-              leetcode
+            <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" class="">
+              面试题
             </a>
           
         </div>
@@ -345,62 +345,115 @@
         
       </div>
       <div class="post-content">
-        <p>收获：对于滑动窗口思考。</p>
+        <p>收获：对于java类初始化和实例初始化的思考。</p>
 <a id="more"></a>
 
-<p>这道题一拿过来，倒是想到了用滑动窗口做。做的过程中出现了这么个问题：</p>
-<p>（1）如果最后一个字符没有重复，那么整体长度正常</p>
-<p>（2）如果最后一个字符重复了，那么整体长度会增加1</p>
-<p>是因为，最后一个字符如果重复了，那么最后一个字符的下标就用上了，而start位置的下标是那个重复字符的下标，于是这个重复字符就计算了两次。</p>
-<p>然后瞄了一眼别人的答案，发现我的思路还是有很多的问题：</p>
-<p>（1）不论当前字符是否重复，当前字符都应当加入hashmap中。</p>
-<p>（2）就算当前字符重复了，也不需要将之前存入hashmap的字符删除。因为把当前字符存入hashmap的时候，它会自动覆盖之前存储的键值对。</p>
-<p>（3）当修改滑动窗口的左边位置时，应该想到，左边的窗口位置始终是一直变大的。而不是让左边的窗口位置回到上一个重复节点的位置。比如“abba”，第一次重复时，让左边窗口位置定位到b，而第二次重复时，如果把窗口左边位置定位回a，就会造成结果的错误。</p>
-<h2 id="我的答案："><a href="#我的答案：" class="headerlink" title="我的答案："></a>我的答案：</h2><pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">lengthOfLongestSubstring</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> start <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> end <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> len <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-    <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> chars <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">toCharArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    HashMap<span class="token operator">&lt;</span>Character<span class="token punctuation">,</span> Integer<span class="token operator">></span> map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">while</span> <span class="token punctuation">(</span> end <span class="token operator">&lt;</span> chars<span class="token punctuation">.</span>length <span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>map<span class="token punctuation">.</span><span class="token function">containsKey</span><span class="token punctuation">(</span>chars<span class="token punctuation">[</span>end<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-            start <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>map<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>chars<span class="token punctuation">[</span>end<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span>start<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token comment" spellcheck="true">// start = map.get(chars[end]) + 1;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-        map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>chars<span class="token punctuation">[</span>end<span class="token punctuation">]</span><span class="token punctuation">,</span> end<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        len <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>end <span class="token operator">-</span> start <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> len<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        end<span class="token operator">++</span><span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> len<span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span></code></pre>
-<h2 id="官方答案："><a href="#官方答案：" class="headerlink" title="官方答案："></a>官方答案：</h2><pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">lengthOfLongestSubstring</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">// 哈希集合，记录每个字符是否出现过</span>
-        Set<span class="token operator">&lt;</span>Character<span class="token operator">></span> occ <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashSet</span><span class="token operator">&lt;</span>Character<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> n <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">// 右指针，初始值为 -1，相当于我们在字符串的左边界的左侧，还没有开始移动</span>
-        <span class="token keyword">int</span> rk <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> ans <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-                <span class="token comment" spellcheck="true">// 左指针向右移动一格，移除一个字符</span>
-                occ<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-            <span class="token keyword">while</span> <span class="token punctuation">(</span>rk <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">&lt;</span> n <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>occ<span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>rk <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
-                <span class="token comment" spellcheck="true">// 不断地移动右指针</span>
-                occ<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>rk <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token operator">++</span>rk<span class="token punctuation">;</span>
-            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-            <span class="token comment" spellcheck="true">// 第 i 到 rk 个字符是一个极长的无重复字符子串</span>
-            ans <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>ans<span class="token punctuation">,</span> rk <span class="token operator">-</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> ans<span class="token punctuation">;</span>
-    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
-<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<p><img src="C:\Users\10788\AppData\Roaming\Typora\typora-user-images\image-20201110133940958.png" alt="image-20201110133940958"></p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Father</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token function">method</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-作者：LeetCode<span class="token operator">-</span>Solution
-链接：https<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>leetcode<span class="token operator">-</span>cn<span class="token punctuation">.</span>com<span class="token operator">/</span>problems<span class="token operator">/</span>longest<span class="token operator">-</span>substring<span class="token operator">-</span>without<span class="token operator">-</span>repeating<span class="token operator">-</span>characters<span class="token operator">/</span>solution<span class="token operator">/</span>wu<span class="token operator">-</span>zhong<span class="token operator">-</span>fu<span class="token operator">-</span>zi<span class="token operator">-</span>fu<span class="token operator">-</span>de<span class="token operator">-</span>zui<span class="token operator">-</span>chang<span class="token operator">-</span>zi<span class="token operator">-</span>chuan<span class="token operator">-</span>by<span class="token operator">-</span>leetc<span class="token operator">-</span><span class="token number">2</span><span class="token operator">/</span>
-来源：力扣（LeetCode）
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</code></pre>
+    <span class="token keyword">static</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"(1)"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token function">Father</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"(2)"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"(3)"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"(4)"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">method</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"(5)"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span></code></pre>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Son</span> <span class="token keyword">extends</span> <span class="token class-name">Father</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token function">method</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">static</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"(6)"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token function">Son</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"(7)"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"(8)"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"(9)"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">method</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"(10)"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        Son s1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Son</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Son s2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Son</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span></code></pre>
+<p>运行结果：</p>
+<h1 id="类初始化和实例初始化"><a href="#类初始化和实例初始化" class="headerlink" title="类初始化和实例初始化"></a>类初始化和实例初始化</h1><p>java程序初始化时，最先进行的是类初始化，然后再进行实例初始化。这也比较容易理解，先有类才有对象。</p>
+<p>其次是先进行静态代码的初始化，再非静态代码的初始化，最后进行构造器代码的执行。</p>
+<h2 id="1-类初始化"><a href="#1-类初始化" class="headerlink" title="1. 类初始化"></a>1. 类初始化</h2><p>（1）一个类要创建实例需要先加载并初始化该类。其中，main方法所在的类需要先加载和初始化。</p>
+<p>（2）一个子类要初始化需要先初始化父类</p>
+<p>（3）<strong>java的类初始化，其实是执行了一个<clinit>（）方法。</strong>====</p>
+<ul>
+<li><clinit>（）方法由==静态类变量显式赋值代码==和==静态代码块==组成；</li>
+<li>静态类变量显示赋值代码和静态代码块代码从上到下顺序执行。即==静态的代码按顺序执行==；</li>
+<li><clinit>（）方法只执行一次。</li>
+</ul>
+<h2 id="2-实例初始化过程"><a href="#2-实例初始化过程" class="headerlink" title="2. 实例初始化过程"></a>2. 实例初始化过程</h2><p><strong>实例初始化其实是执行了<init>（）方法。</strong></p>
+<ul>
+<li><init>（）方法可能重载有多个，有几个构造器就有几个<init>（）方法；</li>
+<li><init>（）由非静态实例变量显式赋值代码和非静态代码块、对应构造器代码组成；</li>
+<li>非静态实例变量显式赋值代码和非静态代码块，==这些非静态代码，按照顺序由上到下执行==，而对应的==构造器代码最后执行==；</li>
+<li>每次创建实例对象，调用对应构造器，执行的就是对应的<init>（）方法；</li>
+<li>==<init>（）方法的首行是super()或super(实参列表)==，即对应父类的<init>方法。不论写不写super（），它都是存在的。</li>
+</ul>
+<h2 id="3-方法的重写Override"><a href="#3-方法的重写Override" class="headerlink" title="3. 方法的重写Override"></a>3. 方法的重写Override</h2><p>（1）哪些方法不能被重写</p>
+<ul>
+<li>final 方法</li>
+<li>静态方法</li>
+<li>private等子类中不可见的方法</li>
+</ul>
+<p>（2）对象的多态性</p>
+<ul>
+<li>子类如果重写了父类的方法，通过子类对象调用的一定是子类重写过的代码。</li>
+<li>非静态方法默认的调用对象是 this</li>
+<li>this 对象在构造器或者说<init>（）方法中，就是正在创建的对象</li>
+</ul>
+<h2 id="4-进阶"><a href="#4-进阶" class="headerlink" title="4. 进阶"></a>4. 进阶</h2><p>（1）Override 和 Overload 的区别？</p>
+<p>（2）Override 重写的要求？</p>
+<p>（3）了解《JVM虚拟机规范》中关于<clinit>和<init>方法的说明、invokespecial指令</p>
+<h2 id="5-例题解析"><a href="#5-例题解析" class="headerlink" title="5. 例题解析"></a>5. 例题解析</h2><ol>
+<li><p>main方法所在类是Son，所以先加载Son所在类；</p>
+</li>
+<li><p>由于子类初始化之前需要先初始化父类，所以先加载 Father， 而 Father 没有父类了，所以直接加载Father；</p>
+</li>
+<li><p>类加载过程，即执行<clinit>（）方法，执行静态的代码，并且这些静态的代码是按照从上到下执行的。因此，执行了（5）然后是（1）；</p>
+</li>
+<li><p>父类加载完成后，开始加载子类。同样地，按顺序执行了（10）（6）；</p>
+</li>
+<li><p>类加载完毕后，开始执行实例加载过程。同样地，实例化子类之前要先实例化父类。</p>
+</li>
+<li><p>实例化对象的过程，实质上是执行了<init>（）方法，于是按顺序执行非静态的代码。这里先执行的是</p>
+<pre><code>private int i = test();</code></pre>
+<p>实际上，==非静态方法默认的调用对象是 this==， 因此这句代码等同于:</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>而  this 对象在构造器，或者说<init>（）方法中，就是正在创建的对象，也就是正在创建的Son对象，也就是调用了子类重写的test（）方法。所以输出的应该是（9）。</p>
+</li>
+<li><p>执行完了test（）方法，接着就是执行非静态代码块，输出了（3），最后执行构造方法里的代码，输出了（2）。</p>
+</li>
+<li><p>按同样的规则，输出了（9）（8）（7）。</p>
+</li>
+</ol>
 
       </div>
       
@@ -411,7 +464,7 @@
     </li>
     <li class="post-copyright-link">
     <strong>文章链接:  </strong>
-    <a href="/2020/11/09/Leetcode0003/" target="_blank" title="Leetcode  0003">https://harbourzhang99.github.io/2020/11/09/Leetcode0003/</a>
+    <a href="/2020/11/10/java面试题/" target="_blank" title="java 初始化相关问题">https://harbourzhang99.github.io/2020/11/10/java面试题/</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明:   </strong>
@@ -427,17 +480,17 @@
       <div class="post-nav">
 
   <div class="post-nav-prev post-nav-item">
-    <a href="/2020/11/10/Singleton%20%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">
-      上一篇:    singleton单例模式
+    <a href="/2020/11/10/Leetcode0004/">
+      上一篇:    Leetcode  0004
     </a>
   </div>
 
 
 
   <div class="post-nav-next post-nav-item">
-    <a href="/2020/11/09/Leetcode0001/">
+    <a href="/2020/11/10/Singleton%20%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">
       <span>
-        下一篇:    Leetcode  0001 
+        下一篇:    singleton单例模式 
       </span>
     </a>
   </div>
