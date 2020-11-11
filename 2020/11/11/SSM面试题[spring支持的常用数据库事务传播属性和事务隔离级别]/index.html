@@ -10,7 +10,7 @@
   <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-  <title>标签 | Harbour个人博客</title>
+  <title>SSM - spring支持的常用数据库事务传播属性和事务隔离级别 | Harbour个人博客</title>
   
     
 <link rel="stylesheet" href="/js/aos/aos.css">
@@ -309,102 +309,444 @@
 </header>
     <main class="main" style="margin-top: 60px;">
       
-<div style="width: 100%;height: 50vh;overflow: hidden;background-image: url('/medias/tag.png');background-size: cover; 
-background-position: center center;">
+
+
+<div class="post-detail-header" style="background: url(/medias/9.png) no-repeat; background-size: cover; 
+  background-position: center center;">
+  
+    <span class="title">SSM - spring支持的常用数据库事务传播属性和事务隔离级别</span>
+  
 </div>
-<div id="tags" class="container">
-    <div class="card">
-        <div class="card-content">
-            <div class="tag-title center-align">
-                <i class="fa fa-tags"></i>&nbsp;&nbsp;文章标签
-            </div>
-            <div class="tag-chips">
-                
-                
-                <a href="/tags/algorithm/" title="algorithm: 5">
-                    <span class="tag-content"
-                        title="algorithm" style="background-color: #F9EBEA;">algorithm
-                        <span class="tag-length">5</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/leetcode/" title="leetcode: 5">
-                    <span class="tag-content"
-                        title="leetcode" style="background-color: #82E0AA;">leetcode
-                        <span class="tag-length">5</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/java/" title="java: 2">
-                    <span class="tag-content"
-                        title="java" style="background-color: #A3E4D7;">java
-                        <span class="tag-length">2</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/spring-cloud/" title="spring cloud: 1">
-                    <span class="tag-content"
-                        title="spring cloud" style="background-color: #F9EBEA;">spring cloud
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" title="二分查找: 1">
-                    <span class="tag-content"
-                        title="二分查找" style="background-color: #F5EEF8;">二分查找
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/ssm/" title="ssm: 2">
-                    <span class="tag-content"
-                        title="ssm" style="background-color: #F8C471;">ssm
-                        <span class="tag-length">2</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" title="面试题: 6">
-                    <span class="tag-content"
-                        title="面试题" style="background-color: #FFF;">面试题
-                        <span class="tag-length">6</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" title="数据库: 1">
-                    <span class="tag-content"
-                        title="数据库" style="background-color: #F9E79F;">数据库
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/%E4%BA%8B%E5%8A%A1/" title="事务: 1">
-                    <span class="tag-content"
-                        title="事务" style="background-color: #A3E4D7;">事务
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/tags/javase/" title="javase: 3">
-                    <span class="tag-content"
-                        title="javase" style="background-color: #FEF9E7;">javase
-                        <span class="tag-length">3</span>
-                    </span>
-                </a>
-                
-            </div>
+<div class="row justify-center">
+  <div class="main-content">
+    <article class="post post-detail">
+      
+      
+      <div class="post-meta">
+        <i class="fa fa-clock-o" aria-hidden="true"></i>
+        <span class="post-time">2020-11-11</span>
+      </div>
+      
+      <div class="post-tags-categories">
+        
+        <div class="tags">
+          <i class="iconfont icontag"></i>
+          
+            <a href="/tags/ssm/" class="">
+              ssm
+            </a>
+          
+            <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" class="">
+              面试题
+            </a>
+          
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="">
+              数据库
+            </a>
+          
+            <a href="/tags/%E4%BA%8B%E5%8A%A1/" class="">
+              事务
+            </a>
+          
         </div>
-    </div>
+        
+        
+      </div>
+      <div class="post-content">
+        <p>收获：ssm学习笔记。</p>
+<a id="more"></a>
+
+<h1 id="spring支持的常用数据库事务传播属性和事务隔离级别"><a href="#spring支持的常用数据库事务传播属性和事务隔离级别" class="headerlink" title="spring支持的常用数据库事务传播属性和事务隔离级别"></a>spring支持的常用数据库事务传播属性和事务隔离级别</h1><p>事务是恢复和<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6">并发控制</a>的基本单位。</p>
+<p>事务应该具有4个属性：==原子性、一致性、隔离性、持久性==。这四个属性通常称为<strong>ACID特性</strong>。</p>
+<table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th>释义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">原子性（atomicity）</td>
+<td>一个事务是一个不可分割的工作单位，事务中包括的操作要么都做，要么都不做。</td>
+</tr>
+<tr>
+<td align="center">一致性（consistency）</td>
+<td>事务必须是使数据库从一个一致性状态变到另一个一致性状态。一致性与原子性是密切相关的。</td>
+</tr>
+<tr>
+<td align="center">隔离性（isolation）</td>
+<td>一个事务的执行不能被其他事务干扰。即一个事务内部的操作及使用的数据对并发的其他事务是隔离的，并发执行的各个事务之间不能互相干扰。</td>
+</tr>
+<tr>
+<td align="center">持久性（durability）</td>
+<td>持久性也称永久性（permanence），指一个事务一旦提交，它对数据库中数据的改变就应该是永久性的。接下来的其他操作或故障不应该对其有任何影响。</td>
+</tr>
+</tbody></table>
+<h2 id="1-Spring支持的常用数据库事务传播属性和事务隔离级别"><a href="#1-Spring支持的常用数据库事务传播属性和事务隔离级别" class="headerlink" title="1. Spring支持的常用数据库事务传播属性和事务隔离级别"></a>1. Spring支持的常用数据库事务传播属性和事务隔离级别</h2><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//请简单介绍Spring支持的常用数据库事务传播属性和事务隔离级别？</span>
+
+<span class="token comment" spellcheck="true">/**
+ * 事务的属性：
+ *     1.★propagation：用来设置事务的传播行为
+ *        事务的传播行为：一个方法运行在了一个开启了事务的方法中时，当前方法是使用原来的事务还是开启一个新的事务
+ *        -Propagation.REQUIRED：默认值，使用原来的事务
+ *        -Propagation.REQUIRES_NEW：将原来的事务挂起，开启一个新的事务
+ *     2.★isolation：用来设置事务的隔离级别
+ *        -Isolation.REPEATABLE_READ：可重复读，MySQL默认的隔离级别
+ *        -Isolation.READ_COMMITTED：读已提交，Oracle默认的隔离级别，开发时通常使用的隔离级别
+ */</span></code></pre>
+<h2 id="2-事务的传播属性："><a href="#2-事务的传播属性：" class="headerlink" title="2. 事务的传播属性："></a>2. 事务的传播属性：</h2><p>当事务方法被另一个事务方法调用时，必须指定事务应该如何传播。例如：方法可能继承在现有事务中运行，也可能开启一个新事务，并在自己的事务中运行。 事务的传播行为可以由传播属性指定。Spring定义了7种类型的传播行为。</p>
+<table>
+<thead>
+<tr>
+<th>传播属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>REQUIRED （默认）</td>
+<td>如果有事务在运行，当前的方法就在这个事务内运行，否则，就启动一个新的事务，并在自己的事务内运行</td>
+</tr>
+<tr>
+<td>REQUIRES_NEW</td>
+<td>当前的方法必须启动新的事务，并在它自己的事务内运行，如果有事务正在运行，应该将它挂起</td>
+</tr>
+<tr>
+<td>SUPPORTS</td>
+<td>如果有事务正在运行，当前的方法就在这个事务内运行。否则它可以不运行在事务中</td>
+</tr>
+<tr>
+<td>NOT_SUPPORTED</td>
+<td>当前的方法不应该运行在事务中。如果有运行的事务，将它挂起</td>
+</tr>
+<tr>
+<td>MANDATORY</td>
+<td>当前的方法必须运行在事务内部。如果没有正在运行的事务，就抛出异常</td>
+</tr>
+<tr>
+<td>NEVER</td>
+<td>当前的方法不应该运行在事务中。如果有运行的事务,就抛出异常</td>
+</tr>
+<tr>
+<td>NESTED</td>
+<td>如果有事务在运行，当前的方法就应该在这个事务的嵌套事务内运行。否则，就启动一个新的事务，并在它自己的事务内运行</td>
+</tr>
+</tbody></table>
+<h2 id="3-事务的隔离级别"><a href="#3-事务的隔离级别" class="headerlink" title="3. 事务的隔离级别"></a>3. 事务的隔离级别</h2><h3 id="1-数据库事务并发问题"><a href="#1-数据库事务并发问题" class="headerlink" title="(1) 数据库事务并发问题"></a>(1) 数据库事务并发问题</h3><pre><code>假设现在有两个事务：Transaction01和Transaction02并发执行</code></pre>
+<ul>
+<li>==脏读==<ul>
+<li>Transaction01 将某条记录的AGE值从20修改为30</li>
+<li>Transaction02 读取了 Transaction01 更新后的值：30</li>
+<li>Transaction01 回滚，AGE值恢复到了20</li>
+<li>Transaction02 读到的30就是一个无效的值</li>
+</ul>
+</li>
+<li>==不可重复读==<ul>
+<li>Transaction01读取了AGE值为20</li>
+<li>Transaction02将AGE值修改为30</li>
+<li>Transaction01再次读取AGE值为30，和第一次读取的不一致</li>
+</ul>
+</li>
+<li>==幻读==<ul>
+<li>Transaction01读取了stu表中的一部分数据</li>
+<li>Transaction02向stu表中插入了新的行</li>
+<li>Transaction01读取stu表时，多出了一些行</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-事务的隔离级别"><a href="#2-事务的隔离级别" class="headerlink" title="(2) 事务的隔离级别"></a>(2) 事务的隔离级别</h3><pre><code>数据库系统必须具有隔离并发运行各个事务的能力，使他们不会相互影响，避免各种并发问题。一个事务与其他事务隔离的程度称为隔离级别。SQL标准中规定了好多事务隔离级别，不同隔离级别对应不同的干扰程度，隔离级别越高，数据一致性就越好，性能开销越大</code></pre>
+<ul>
+<li><p>==读未提交：<strong>READ UNCOMMITTED</strong>==<br>允许Transaction01读取Transaction02未提交的修改<br>(上面三种情况都不可避免）</p>
+</li>
+<li><p>==读已提交：<strong>READ COMMITTED</strong>==（常用的，其他事务已经提交的数据都认为是真的）</p>
+<p>要求Transaction01只能读取Transaction02已提交的修改<br>（可避免脏读）</p>
+</li>
+<li><p>==可重复读：<strong>REPEATABLE READ</strong>==<br>确保Transaction01可以多次从一个字段中读取到相同的值，即Transaction01执行期间禁止其他事务对这个字段进行更新。<br>（可避免脏读，不可重复读）</p>
+</li>
+<li><p>==串行化：<strong>SERIALIZABLE</strong>==<br>确保Transaction01可以从一个表中读取到相同的行，在Transaction01执行期间，禁止其他事务对这个表进行增删改操作。可以避免任何并发问题，但性能十分低下。</p>
+</li>
+</ul>
+<p><strong>各个隔离级别解决并发问题的能力见下表</strong></p>
+<table>
+<thead>
+<tr>
+<th>隔离级别</th>
+<th>脏读</th>
+<th>不可重复读</th>
+<th>幻读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>READ UNCOMMITTED</td>
+<td>有</td>
+<td>有</td>
+<td>有</td>
+</tr>
+<tr>
+<td>READ COMMITTED</td>
+<td>无</td>
+<td>有</td>
+<td>有</td>
+</tr>
+<tr>
+<td>REPEATABLE READ</td>
+<td>无</td>
+<td>无</td>
+<td>有</td>
+</tr>
+<tr>
+<td>SERIALIZABLE</td>
+<td>无</td>
+<td>无</td>
+<td>无</td>
+</tr>
+</tbody></table>
+<p><strong>各种数据库产品对事务隔离级别的支持程度</strong></p>
+<table>
+<thead>
+<tr>
+<th>隔离级别</th>
+<th align="center">Oracle</th>
+<th align="center">MySQL</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>READ UNCOMMITTED</td>
+<td align="center">x</td>
+<td align="center">√</td>
+</tr>
+<tr>
+<td>READ COMMITTED</td>
+<td align="center">√(默认)</td>
+<td align="center">√</td>
+</tr>
+<tr>
+<td>REPEATABLE READ</td>
+<td align="center">x</td>
+<td align="center">√(默认)</td>
+</tr>
+<tr>
+<td>SERIALIZABLE</td>
+<td align="center">√</td>
+<td align="center">√</td>
+</tr>
+</tbody></table>
+
+      </div>
+      
+        <div class="copyright">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+    <strong>作者:  </strong>Harbour</a>
+    </li>
+    <li class="post-copyright-link">
+    <strong>文章链接:  </strong>
+    <a href="/2020/11/11/SSM面试题[spring支持的常用数据库事务传播属性和事务隔离级别]/" target="_blank" title="SSM - spring支持的常用数据库事务传播属性和事务隔离级别">https://harbourzhang99.github.io/2020/11/11/SSM面试题[spring支持的常用数据库事务传播属性和事务隔离级别]/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明:   </strong>
+      本网站所有文章除特别声明外,均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+      许可协议。转载请注明出处!
+    </li>
+  </ul>
+<div>
+      
+    </article>
+    <!-- 上一篇文章和下一篇文章 -->
+    
+      <div class="post-nav">
+
+
+
+  <div class="post-nav-next post-nav-item">
+    <a href="/2020/11/11/SSM%E9%9D%A2%E8%AF%95%E9%A2%98%5Bbean%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F%5D/">
+      <span>
+        下一篇:    SSM - bean的作用域 
+      </span>
+    </a>
+  </div>
+
 </div>
 
+    
+    
+
+    <!-- 打赏 -->
+    
+      <div id="appDonate" class="post-donate">
+  <div id="donate_board" class="donate_bar center" ref="donate">
+    <a id="btn_donate" class="btn_donate" href="javascript:;" title="打赏" @click="showDialogDrawer()"></a>
+  </div>
+  <transition name="fade">
+    <div 
+      class="donate-box-mask"
+      v-cloak 
+      v-if="visible"
+      @click="cancelDialogDrawer()"
+    >
+    </div>
+  </transition>
+  <transition name="bounce">
+    <div class="donate-box" v-cloak v-if="visible">
+      <div class="donate-box_close">
+        <i class="fa fa-times" aria-hidden="true" @click="cancelDialogDrawer"></i>
+      </div>
+      <div class="donate-box_title">
+        <h4>
+          你的赏识是我前进的动力
+        </h4>
+      </div>
+      <div class="donate-box_tab">
+        <div class="Alipay" :class="{'active': tabActive === 'Alipay'}" @click="changeTabActive('Alipay')">
+          支付宝
+        </div>
+        <div class="WeChatpay" :class="{'active': tabActive === 'WeChatpay'}" @click="changeTabActive('WeChatpay')">
+          微信
+        </div>
+      </div>
+      <div class="donate-box_img">
+        <div class="AlipayImg" v-if="tabActive === 'Alipay'">
+          <img src="/medias/zfb.jpg" alt="支付宝打赏" />
+        </div> 
+        <div class="WeChatpayImg" v-if="tabActive === 'WeChatpay'">
+          <img src="/medias/wx.jpg" alt="微信打赏" />
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDonate',
+    data: {
+      visible: false,
+      tabActive: 'Alipay',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        // function getScroll() {
+        //   return {
+        //     left: window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0,
+        //     top: window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+        //   };
+        // }
+        this.top = $(document).scrollTop() // or getScroll().top
+        body.style.cssText = 'width: 100%; height: 100%; position: fixed; top: -' + this.top + 'px; left: 0; overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+      changeTabActive(name) {
+        this.tabActive = name;
+      }
+    },
+    created() {}
+  })
+</script>
+    
+
+    <!-- 分享 -->
+    
+      <!-- https://github.com/overtrue/share.js -->
+
+<div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+
+
+
+<script src="/js/shareJs/social-share.min.js"></script>
+
+</script>
+
+<style>
+  .social-share {
+    margin: 20px 0;
+  }
+</style>
+
+
+    
+
+    <!-- 评论 -->
+      
+        
+      
+  </div>
+
+  
+    <div class="toc-aside">
+      <div class="toc-main">
+        <div class="toc-aside-title">
+          <i class="fa fa-list-ul" aria-hidden="true"></i><span>目录</span>
+        </div>
+        <div class="toc-content">
+          <link href="/js/tocbot/tocbot.css" rel="stylesheet">
+<script src="/js/tocbot/tocbot.min.js"></script>
+<div class="toc"></div>
+
+<script>
+  if ($('.toc').length > 0) {
+    var headerEl = 'h2, h3, h4',  //headers 
+      content = '.post-detail',//文章容器
+      idArr = {};  //标题数组以确定是否增加索引id
+      //add #id
+
+    $(content).children(headerEl).each(function () {
+      //去除空格以及多余标点
+      var headerId = $(this).text().replace(/[\s|\~|`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\_|\+|\=|\||\|\[|\]|\{|\}|\;|\:|\"|\'|\,|\<|\.|\>|\/|\?|\：|\，|\。]/g, '');
+
+      headerId = headerId.toLowerCase();
+      if (idArr[headerId]) {
+        //id已经存在
+        $(this).attr('id', headerId + '-' + idArr[headerId]);
+        idArr[headerId]++;
+      }
+      else {
+        //id未存在
+        idArr[headerId] = 1;
+        $(this).attr('id', headerId);
+      }
+    });
+
+    tocbot.init({
+      // Where to render the table of contents.
+      tocSelector: '.toc',
+      // Where to grab the headings to build the table of contents.
+      contentSelector: content,
+      // Which headings to grab inside of the contentSelector element.
+      headingSelector: headerEl,
+      scrollSmooth: true,
+      scrollSmoothOffset: -80,
+      headingsOffset: 130,
+      positionFixedSelector: '.toc-main',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  }
+
+</script>
+
+<style>
+.is-position-fixed {
+  position:fixed !important;
+  top: 64px;
+}
+
+</style>
+        </div>
+      </div>
+    </div>
+  
+</div>
 
     </main>
     <div class="footer bg-color">
